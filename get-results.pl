@@ -25,7 +25,10 @@ for my $c (@$candidaturas ) {
   my $what = shift @$rows ;
   my $total_ref = pop @$rows;
   my $cols = $what->find('div')->map('text');
-  $results{$who}= [{ 'Total' => $total_ref->all_text()}];
+  my $total = $total_ref->all_text();
+  $total =~ s/,/./;
+  $results{$who} = { 'Total' => $total,
+		     'Sector' => [] };
   for my $r ( @$rows ) {
     my @these_cols = @$cols;
     my $res = $r->find('td')->map('text');
@@ -33,7 +36,7 @@ for my $c (@$candidaturas ) {
     while ( my $l = shift @these_cols ) {
       $results_sector->{$l} = shift @$res;
     }
-    push @{$results{$who}}, $results_sector;
+    push @{$results{$who}{'Sector'}}, $results_sector;
   }
 }
 
