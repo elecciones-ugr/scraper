@@ -34,7 +34,9 @@ for my $c (@$candidaturas ) {
     my $res = $r->find('td')->map('text');
     my $results_sector = {};
     while ( my $l = shift @these_cols ) {
-      $results_sector->{$l} = shift @$res;
+	my $this_result = shift @$res;
+	$this_result =~ s/,/./g;
+	$results_sector->{$l} = $this_result;
     }
     push @{$results{$who}{'Sector'}}, $results_sector;
   }
