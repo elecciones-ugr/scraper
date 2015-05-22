@@ -5,9 +5,11 @@ use autodie;
 
 use LWP::Simple;
 use Mojo::DOM;
+use File::Slurp::Tiny qw(write_file);
 use JSON;
 
 my $url = shift || "file:muestra.html";
+my $output_fn = shift || "results";
 
 my $dom = Mojo::DOM->new( get $url );
 
@@ -35,4 +37,8 @@ for my $c (@$candidaturas ) {
   }
 }
 
-say encode_json \%results;
+my $output = encode_json \%results;
+
+write_file("$output_fn.json",$output);
+my $jsonp = "parse_results( $output )";
+write_file("$output_fn.jsonp",$jsonp);
