@@ -15,9 +15,11 @@ my $dom = Mojo::DOM->new( get $url );
 
 die "No puedo descargarme $url" if !$dom;
 
+my ($porcentaje) = ( $dom->all_text() =~ /del\s+(\d+\.\d+)\%/ );
 my $candidaturas = $dom->find("table.unnamed1");
 
-my %results;
+my %results = ( Escrutado => $porcentaje,
+		Resultados => {} );
 for my $c (@$candidaturas ) {
   my $rows = $c->find("table tr");
   my $who_ref = shift @$rows ;
@@ -27,8 +29,8 @@ for my $c (@$candidaturas ) {
   my $cols = $what->find('div')->map('text');
   my $total = $total_ref->all_text();
   $total =~ s/,/./;
-  $results{$who} = { 'Total' => $total,
-		     'Sector' => [] };
+  $results{'Resultados'}{$who} = { 'Total' => $total,
+				   'Sector' => [] };
   for my $r ( @$rows ) {
     my @these_cols = @$cols;
     my $res = $r->find('td')->map('text');
@@ -38,7 +40,7 @@ for my $c (@$candidaturas ) {
 	$this_result =~ s/,/./g;
 	$results_sector->{$l} = $this_result;
     }
-    push @{$results{$who}{'Sector'}}, $results_sector;
+    push @{$results{'Resultados'}{$who}{'Sector'}}, $results_sector;
   }
 }
 
