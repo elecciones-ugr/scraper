@@ -13,7 +13,7 @@ TwCLI usa la librería [Tweepy](http://www.tweepy.org/) para acceder a la API de
 
 TwCLI necesita una api key de twitter. Se trata de un conjunto de cuatro claves (dos de aplicación y dos de usaurio) que se obtienen al dar de alta una aplicación aquí: [https://dev.twitter.com/apps/new](https://dev.twitter.com/apps/new)
 
-TwCLI usa un archivo INI para almacenar las contraseñas y las opciones de configuración
+TwCLI usa un archivo INI para almacenar las opciones de configuración. Las contraseñas se leen de las variables de entorno TW_CONSUMER_KEY y otras por el estilo.
 
 Por orden de preferencia, buscará el archivo en
 
@@ -25,27 +25,27 @@ Por orden de preferencia, buscará el archivo en
 
 Ver tu propio timeline (tweets de gente que sigues o que te mencionan)
 
-`twcli.pl`
+`twcli.py`
 
 Ver detalles de un usuario:
 
-`twcli.pl -u Usuario`
+`twcli.py -u Usuario`
 
 Ver timeline de un usuario:
 
-`twcli.pl -t Usuario`
+`twcli.py -t Usuario`
 
 Enviar un tweet:
 
-`twcli.pl "texto del tweet"`
+`twcli.py "texto del tweet"`
 
 Enviar un tweet con una imagen adjunta;
 
-`twcli.pl -i "/ruta/a/la/imagen" "texto del tweet"`
+`twcli.py -i "/ruta/a/la/imagen" "texto del tweet"`
 
 Ver menú de ayuda:
 
-`twcli.pl -h`
+`twcli.py -h`
 
 
 ##twcli.ini

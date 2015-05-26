@@ -122,10 +122,10 @@ def login_api(config):
     """Se loguea en twitter mediante OAuth con las claves extraídas del archivo de configuración"""
 
     try:
-        consumer_key= config.get("Keys", "consumer_key")
-        consumer_key_secret= config.get("Keys", "consumer_key_secret")
-        access_token= config.get("Keys", "access_token")
-        access_token_secret= config.get("Keys", "access_token_secret")
+        consumer_key= os.environ["TW_CONSUMER_KEY"]
+        consumer_key_secret= os.environ["TW_CONSUMER_KEY_SECRET"]
+        access_token= os.environ["TW_ACCESS_TOKEN"]
+        access_token_secret= os.environ["TW_ACCESS_TOKEN_SECRET"]
     except:
         show_error("faltan datos de clave en CONFIG, LECHES")
         sys.exit()
