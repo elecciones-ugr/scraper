@@ -1,7 +1,8 @@
 #!/bin/bash
 
-for i in 1..120; do
-    ./get-resultados.pl http://oficinavirtual.ugr.es/elecciones/mostrar_detalles.jsp ../elecciones-ugr.github.io/resultados
-    cd ../elecciones-ugr.github.io; git commit -am "Resultados ${i}";git push
+for i in `seq 1 40`;
+do
+    ./get-results.pl http://oficinavirtual.ugr.es/elecciones/graficas/mostrar_recuento_sectores.jsp ../elecciones-ugr.github.io/resultados
+    cd ../elecciones-ugr.github.io; git commit -am "Resultados ${i}";git push;cd ../scraper
     sleep 120
 done

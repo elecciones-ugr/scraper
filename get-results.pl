@@ -56,7 +56,7 @@ if ( $porcentaje != $old_results->{'Escrutado'} ) {
     }
   }
   
-  my $tweet = "Escrutado: $porcentaje% ".cuadraicos($porcentaje)."\n";
+  my $tweet = "#eleccionesugr Escrutado: $porcentaje% ".cuadraicos($porcentaje)."\n";
   my @cuadraicos=('▥', '▧');
   for my $c (keys %{$results{'Resultados'}} ) {
       my $cuadraico = shift @cuadraicos;
