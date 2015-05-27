@@ -2,6 +2,7 @@
 
 use Modern::Perl;
 use autodie;
+use utf8;
 
 use LWP::Simple;
 use Mojo::DOM;
@@ -55,12 +56,32 @@ if ( $porcentaje != $old_results->{'Escrutado'} ) {
     }
   }
   
+  my $tweet = "Escrutado: $porcentaje% ".cuadraicos($porcentaje)."\n";
+  my @cuadraicos=('▥', '▧');
+  for my $c (keys %{$results{'Resultados'}} ) {
+      my $cuadraico = shift @cuadraicos;
+      my $total = $results{'Resultados'}{$c}{'Total'};
+      $tweet .= cuadraicos($total, $cuadraico)
+	." $total% $c\n";
+  }
+
+  #Ahora tweetea
+  `./twcli.py "$tweet"`;
+
+  # Escribe ficheros
   my $output = encode_json \%results;
-  
   write_file("$output_fn.csv", join("\n",map( join("; ", @$_), @results_csv)));
   write_file("$output_fn.json",$output);
   my $jsonp = "parse_results( $output )";
   write_file("$output_fn.jsonp",$jsonp);
+
 } else {
   say "Mismos resultados";
+}
+
+sub cuadraicos {
+    my $porcentaje = shift || 100;
+    my $cuadraico = shift || '▤';
+    my $offset = $porcentaje / 10;
+    return $cuadraico x $offset;
 }
