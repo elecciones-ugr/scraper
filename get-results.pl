@@ -23,7 +23,7 @@ die "No puedo descargarme $url" if !$dom;
 my ($porcentaje) = ( $dom->all_text() =~ /del\s+(\d+\.\d+)\%/ );
 
 if ( $porcentaje != $old_results->{'Escrutado'} ) {
-  my $candidaturas = $dom->find("table.unnamed1");
+  my $candidaturas = $dom->find("table.con_borde");
 
   my %results = ( Escrutado => $porcentaje,
 		  Resultados => {} );
